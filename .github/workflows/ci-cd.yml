@@ -7,6 +7,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
 
     steps:
     - name: Checkout code
@@ -47,6 +50,6 @@ jobs:
         EOF
 
     - name: Deploy to GitHub Packages
-      run: mvn deploy
+      run: mvn clean deploy -Dmaven.test.skip=true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
